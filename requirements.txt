@@ -1,0 +1,8 @@
+streamlit==1.29.0
+openai==1.10.0
+PyPDF2==3.0.1
+python-dotenv==1.0.0
+pypandoc==1.12
+regex==2023.10.3
+pandoc==2.3  # Needs to be installed system-wide
+latexcodec==2.0.1
