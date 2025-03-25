@@ -12,7 +12,7 @@ client = openai.Client(api_key=st.secrets["OPENAI_API_KEY"])
 st.title("AI-Powered Resume Customizer")
 
 # Configure pdfkit (requires wkhtmltopdf installed)
-config = pdfkit.configuration("./wkhtmltopdf.exe")  # Update path as needed
+config = pdfkit.configuration(wkhtmltopdf="./wkhtmltopdf.exe")  # Update path as needed
 
 def extract_text_from_pdf(uploaded_file):
     with pdfplumber.open(uploaded_file) as pdf:
