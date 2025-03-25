@@ -2,7 +2,7 @@ import streamlit as st
 import pdfplumber
 import openai
 import re
-import pdfkit
+from weasyprint import HTML
 from bs4 import BeautifulSoup
 import tempfile
 import os
@@ -10,9 +10,6 @@ import os
 # Set up OpenAI and Streamlit
 client = openai.Client(api_key=st.secrets["OPENAI_API_KEY"])
 st.title("AI-Powered Resume Customizer")
-
-# Configure pdfkit (requires wkhtmltopdf installed)
-config = pdfkit.configuration(wkhtmltopdf="./wkhtmltopdf.exe")  # Update path as needed
 
 def extract_text_from_pdf(uploaded_file):
     with pdfplumber.open(uploaded_file) as pdf:
@@ -85,7 +82,7 @@ def modify_resume_html(html_content, job_desc, notes):
 
 def html_to_pdf(html_content):
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
-        pdfkit.from_string(html_content, tmpfile.name, configuration=config)
+        HTML(string=html_content).write_pdf(tmpfile.name)
         return tmpfile.name
 
 # Sidebar inputs
