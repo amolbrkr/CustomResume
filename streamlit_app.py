@@ -82,6 +82,11 @@ def modify_resume_html(html_content, job_desc, notes):
 
 def html_to_pdf(html_content):
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
+        # Create a proper HTML document if it doesn't already have the structure
+        if not html_content.strip().startswith("<html"):
+            html_content = f"<html><body>{html_content}</body></html>"
+        
+        # Use the correct WeasyPrint syntax
         HTML(string=html_content).write_pdf(tmpfile.name)
         return tmpfile.name
 
